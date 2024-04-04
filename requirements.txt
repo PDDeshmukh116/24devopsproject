@@ -50,7 +50,5 @@ six==1.16.0
 
 jmespath==1.0.1
 
-pathspec==0.10.1
-
 phonenumbers==8.13.33
 distlib==0.3.8
