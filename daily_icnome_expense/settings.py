@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(rfuf(_bfy)fuvhd%%q!!glu8^%ddh$6c403n7^_q68#^k3ebx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['2ee49f997aa841b3b14865638ba21660.vfs.cloud9.eu-west-1.amazonaws.com','x23149604-income-expense-tracker-app-env.eba-h3hqcukj.eu-west-1.elasticbeanstalk.com']
 
 
 # Application definition
