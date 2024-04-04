@@ -1,0 +1,69 @@
+{%extends 'sidebar.html' %}
+
+{%block body%}
+
+{%if expl %}
+<table border="1" cellspacing="10">
+    <tr>
+        <th>Id</th>
+        <th>Expense</th>
+        <th>ExpenseType</th>
+        <th>ExpenseDate</th>
+        <th>Description</th>
+        <th>User</th>
+        <th colspan="2">Action</th>
+    </tr>
+
+    {%for i in expl%}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.expense}}</td>
+        <td>{{i.expense_type}}</td>
+        <td>{{i.expense_date}}</td>
+        <td><textarea cols="30" rows="2">{{i.description}}</textarea></td>
+        <td>{{i.user}}</td>
+        <td><a href="{%url 'expense:delete' i.id %}"> Delete</a></td>
+        <td><a href=""> Edit</a></td>
+    </tr>
+
+    {%endfor%}
+</table>
+
+{%else%}
+    <h1> No Records Found ...</h1>
+{%endif%}
+<style>
+    .rside {
+        width: 250px;
+        height: 100%;
+        background-color: rgb(95, 154, 160);
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding-top: 20px; /* Added padding at the top for better spacing */
+        overflow-y: auto; /* Added to allow vertical scrolling if content exceeds the height */
+    }
+    h2 {
+        margin: 0; /* Remove margin to avoid space at the top */
+        padding: 10px;
+    }
+    h3 {
+        padding: 10px;
+        margin: 0;
+    }
+    h3 a {
+        text-decoration: none;
+        color: white; /* Change link color */
+    }
+    h3 a:hover {
+        text-decoration: underline; /* Add underline on hover */
+    }
+</style>
+<div class="rside">
+    <h2>Sort By ExpenseType</h2>
+    <h3><a href="{%url 'expense:list' %}">All</a></h3>
+    {%for i in expt %}
+    <h3><a href="{%url 'expense:ext' i %}">{{i}}</a></h3>
+    {%endfor%}
+</div>
+{%endblock%}
