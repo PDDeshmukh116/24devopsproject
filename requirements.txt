@@ -37,7 +37,6 @@ termcolor==1.1.0
 
 tzdata==2024.1
 
-urllib3==1.26.18
 
 virtualenv==20.25.1
 
