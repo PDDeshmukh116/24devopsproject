@@ -10,4 +10,4 @@ urlpatterns = [
     path("acc-",include(("account.urls",'account'),namespace='account')),
     path("inc-",include(("income.urls",'income'),namespace='income')),
     path("exp-",include(("expense.urls",'expense'),namespace='expense')),
-]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
