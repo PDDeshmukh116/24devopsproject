@@ -15,17 +15,12 @@ def get_balance(request):
     total_expense=0
     for i in incl:
         total_income=total_income+i.income
-    
     for i in expl:
         total_expense=total_expense+i.expense
-
     return total_income-total_expense
-
-
 def home(request):
     context={"bal":get_balance(request)}
     return render(request,"home.html",context)
-
 def adduser(request):
     if request.method=='POST':
         f=UserCreationForm(request.POST)
@@ -35,7 +30,6 @@ def adduser(request):
         f=UserCreationForm()
         context={'form':f}
         return render(request,"adduser.html",context)
-
 def login_view(request):
     if request.method=='POST':  
         uname=request.POST.get("username")
@@ -53,12 +47,9 @@ def login_view(request):
         f=LoginForm
         context={'form':f}
         return render(request,"login.html",context)
-
-
 def logout_view(request):
     logout(request)
     return redirect("/") 
-
 def edit_profile(request):
     uid=request.session.get("uid")
     u=User.objects.get(id=uid)
@@ -70,3 +61,4 @@ def edit_profile(request):
         f=UserForm(instance=u)
         context={'form':f}
         return render(request,"updateuser.html",context)
+        
