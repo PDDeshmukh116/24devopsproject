@@ -28,7 +28,7 @@ def expense_list(request):
     return render(request,"expenselist.html",context)
 #Delete the expense entries
 def delete_expense(request,id):
-    inc=Expense.objects.get(id=id)git
+    inc=Expense.objects.get(id=id)
     inc.delete()
     return redirect("/")
 #expense entries can be sorted based on expense type
