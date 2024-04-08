@@ -1,10 +1,10 @@
 version: 0.2
 env:
   secrets-manager:
-    SONARCLOUD_TOKEN: pradnya-123:sonartoken
-    SONARCLOUD_ORG: pradnya-123:Organization
-    PROJECTKEY: pradnya-123:Project
-    HOST: pradnya-123:HOST
+    SONARCLOUD_TOKEN: x23149604-secret-key:sonartoken
+    SONARCLOUD_ORG: x23149604-secret-key:Organization
+    PROJECTKEY: x23149604-secret-key:Project
+    HOST: x23149604-secret-key:HOST
     
 phases:
   install:
