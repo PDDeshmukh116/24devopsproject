@@ -1,25 +1,36 @@
 version: 0.2
+env:
+  secrets-manager:
+    SONARCLOUD_TOKEN: pradnya-123:sonartoken
+    SONARCLOUD_ORG: pradnya-123:Organization
+    PROJECTKEY: pradnya-123:Project
+    HOST: pradnya-123:HOST
+    
 phases:
   install:
     runtime-versions:
       java: corretto21
   pre_build:
     commands:
-      - yum update -y 
-      - yum install -y jq
+      - yum update -y     # Equivalent to apt-get update
+      - yum install -y jq # Install jq using yum package manager
       - retry_count=3
       - for i in $(seq 1 $retry_count); do wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz && break || sleep 10; done
       - tar xzf apache-maven-3.5.4-bin.tar.gz || true
       - ln -s apache-maven-3.5.4 maven
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - mv sonar-scanner-3.3.0.1492-linux /sonar-scanner
+      - export PATH=$PATH:/sonar-scanner/bin/
       
   build:
     commands:
-      - mvn sonar:sonar -Dsonar.login=58d27d02c7dba8aa6e7568e6ac85d93b5946741b -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=24devopsproject -Dsonar.organization=PDDeshmukh116 || true
+      - find / -name pom.xml -exec mv {} ./pom.xml \; || true  # Move all pom.xml files to root
+      - mvn sonar:sonar -Dsonar.login=$SONARCLOUD_TOKEN -Dsonar.host.url=$HOST -Dsonar.projectKey=$PROJECTKEY -Dsonar.organization=$SONARCLOUD_ORG
       - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=24devopsproject >result.json
-      - cat result.json
+      # Check the HTTP response status code directly
+      - if curl -s -o /dev/null -w "%{http_code}" https://sonarcloud.io/api/qualitygates/project_status?projectKey=$PROJECTKEY != "200"; then exit 1; fi
+
 artifacts:
    files:
     - '**/*'
