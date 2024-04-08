@@ -6,7 +6,7 @@ from income.models import Income
 from expense.models import Expense
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
-
+#The logic calucates the amount enter in income and expense list
 def get_balance(request):
     uid=request.session.get("uid")
     incl=Income.objects.filter(user=uid)
@@ -21,6 +21,7 @@ def get_balance(request):
 def home(request):
     context={"bal":get_balance(request)}
     return render(request,"home.html",context)
+    #add user 
 def adduser(request):
     if request.method=='POST':
         f=UserCreationForm(request.POST)
@@ -30,6 +31,7 @@ def adduser(request):
         f=UserCreationForm()
         context={'form':f}
         return render(request,"adduser.html",context)
+#User login 
 def login_view(request):
     if request.method=='POST':  
         uname=request.POST.get("username")
@@ -47,9 +49,11 @@ def login_view(request):
         f=LoginForm
         context={'form':f}
         return render(request,"login.html",context)
+#user logout
 def logout_view(request):
     logout(request)
-    return redirect("/") 
+    return redirect("/")
+    #edit user profile
 def edit_profile(request):
     uid=request.session.get("uid")
     u=User.objects.get(id=uid)

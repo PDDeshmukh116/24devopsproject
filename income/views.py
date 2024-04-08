@@ -2,6 +2,7 @@
 from django.shortcuts import redirect, render
 from .models import Income,IncomeForm
 from django.contrib.auth.models import User
+#user can add income entries
 def addincome(request):
     uid=request.session.get("uid")
     if request.method=='POST':
@@ -22,25 +23,25 @@ def addincome(request):
         f=IncomeForm
         context={'form':f}
         return render(request,"addincome.html",context)
-
+#added income entries would be visible on income list page
 def income_list(request):
     uid=request.session.get("uid")
     inclist=Income.objects.filter(user=uid)
     context={'incl':inclist}
     return render(request,"incomelist.html",context)
-
+#income entries can be deleted
 def delete_income(request,id):
     inc=Income.objects.get(id=id)
     inc.delete()
     return redirect("/")
-
+#income entries can be search based on income type
 def income_search(request):
     uid=request.session.get("uid")
     srch=request.POST.get("srch")
     incl=Income.objects.filter(user=uid,description__contains=srch)
     context={'incl':incl}
     return render(request,"incomelist.html",context)
-
+#user can edit added income entries
 def editIncome(request,id):
     uid = request.session.get("uid")
     instance = Income.objects.get(id=id)
